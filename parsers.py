@@ -71,7 +71,7 @@ class RouteParser:
         self.place        = place.upper() #encode('latin-1').upper()
         self.date         = date.upper() #decode("utf-8").upper()
         self.organizer    = "null".upper() #decode("utf-8").upper()
-        self.routes = {'A': 7.0, 'B':5.0, 'C': 3.0, 'C2': 3.01, 'CV': 3.02, 'D':2.0, '9': 9.0, '7': 7.0, '5': 5.0, 'ARATA': 7.0, 'BRATA': 6.0, 'CRATA': 5.0, 'DRATA': 4.0, 'ERATA': 3.0, 'FRATA': 2.0}
+        self.routes = {'A': 7.0, 'B':5.0, 'C': 3.0, 'C2': 3.01, 'CV': 3.02, 'D':2.0, '9': 9.0, '7': 7.0, '5': 5.0, 'ARATA': 7.0, 'BRATA': 6.0, 'CRATA': 5.0, 'DRATA': 4.0, 'ERATA': 3.0, 'FRATA': 2.0, 'SPRT': 3.0}
         self.routeline    = None
         self.nameline     = None
         self.intervalline = None
@@ -1056,10 +1056,15 @@ class RegexParser2(RouteParser):
                     self.track_type = 'NIGHT' if line.find("YÖ")>=0 else 'SPRINT' if line.find("SPRT")>=0 else 'NORMAL';
                     line = line.replace('-YÖ', '').replace('YÖ-', '');
                     #self.route = self.routes[line.split()[0]];
-                    self.route = self.routes[''.join(line.split()[:-1])];
-                    #self.routetag = "%.2f (%s%s)" % (self.route, 'YÖ-' if self.track_type=='NIGHT' else '', line.split()[0])
-                    self.routetag = "%.2f (%s%s)" % (self.route, 'YÖ-' if self.track_type=='NIGHT' else '', ''.join(line.split()[:-1]))
-                    print("Route: ", self.route, " / ", self.routetag)
+                    key = ''.join(line.split()[:-1]);
+                    if key in self.routes.keys():
+                      self.route = self.routes[''.join(line.split()[:-1])];
+                      #self.routetag = "%.2f (%s%s)" % (self.route, 'YÖ-' if self.track_type=='NIGHT' else '', line.split()[0])
+                      self.routetag = "%.2f (%s%s)" % (self.route, 'YÖ-' if self.track_type=='NIGHT' else '', ''.join(line.split()[:-1]))
+                      print("Route: ", self.route, " / ", self.routetag)
+                    else:
+                      self.route = None
+                      self.intervals = None
 
             # Intervals line
             m = re.search('.*SIJA.*NIMI.*\.(?P<intervals>.*)\.(|RATA)TULOS', line)
