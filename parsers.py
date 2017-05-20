@@ -54,7 +54,7 @@ def recognizeParser(url, **kwargs):
         return (HTTPParserHS,), IltarastitHS3Parser(url, **kwargs)
     elif (url.find("helsinginsuunnistajat.fi")>=0 or url.find("~sakko")>=0):
         return (HTTPParser,), IltarastitHS2Parser(url, **kwargs)
-    elif url.find("rajamaenrykmentti.fi")>=0:
+    elif url.find("rajamaenrykmentti.fi")>=0 or url=="http://sakko.kapsi.fi/v170516.html":
         return (HTTPParser,), IltarastitRRParser(url, **kwargs)
     elif url.find("ok77.fi")>=0 or url=="http://koti.kapsi.fi/~sakko/v160908.html" or url=="http://www.ku-rastit.net/tulokset/valiajat0809.html":
         return (HTTPParser,), LansirastitParser(url, **kwargs)
@@ -755,6 +755,7 @@ class IltarastitRRParser(RouteParser):
     def newline(self, line):
         nameline = False
         routeline = False
+        num = ""
         #if line.find('SPRINTTI'): self.track_type = 'SPRINT'
 
         if (line.find('OMA')>=0 or line.find('0MA')>=0) and len(line.split())<10: # and line.find('AJAT')>=0: # or line.find('RATA')>=0:
@@ -801,7 +802,7 @@ class IltarastitRRParser(RouteParser):
         line += " ";
         ind = max(line.find("RATA"), line.replace("_", " ").replace(",", " ").upper().find("KM "))
         # separator line
-        if ind>=0 and line.find("PYORA")<0 and line.find("PYÖRÄ")<0:
+        if ind>=0 and line.find("PYORA")<0 and line.find("PYÖRÄ")<0 and line.find("KM")>=0:
             try:
                 try:
                     self.route = float(line[:ind].split()[-1].replace(",", "."));
