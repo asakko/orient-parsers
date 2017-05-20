@@ -1008,10 +1008,10 @@ class RegexParser(RouteParser):
                     fulltime_sec = sum([parseseconds(t) for t in self.interval_times_str]);
                     # Artificial nameline
                     namestr = re.findall(search_string.replace('{0}', '{%i}' % n), line)[0][0]
-                    self.nameline = "0. %s %s %s" % (namestr, join(self.interval_times_str, " "), time.strftime('%H.%M.%S', time.gmtime(fulltime_sec)));
+                    self.nameline = "0. %s %s %s" % (namestr, " ".join(self.interval_times_str), time.strftime('%H.%M.%S', time.gmtime(fulltime_sec)));
                     print(namestr)
                     print(self.handleNameline())
-                    self.intervalline = join(["0-%s" % self.interval_times_str[k] for k in range(self.intervals)], " ");
+                    self.intervalline = " ".join(["0-%s" % self.interval_times_str[k] for k in range(self.intervals)]);
                     print(self.handleintervalline())
                     # Artificial intervalline
 
