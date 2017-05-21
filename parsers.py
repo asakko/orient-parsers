@@ -156,6 +156,8 @@ class RouteParser:
                 
                 if len(perf)==11: perf.append('NORMAL');
                 num_intervals = perf[9]
+                print(len(perf))
+                print(str(perf))
                 track_id = self.db.AddTrack(contest_id, length=perf[6], tag=perf[10], intervals=perf[9], track_type=perf[11], output=output)
                 if track_id<0:
                     continue
@@ -656,7 +658,7 @@ class LansirastitParser(AluerastitParser):
             self.intervals = int(line.replace("[", " ").replace("]", "    ")[:-9].split(".")[-2].split()[-1])
 
         ind = line.replace("_", " ").replace(",", " ").rfind("KM ")
-        if ind>=0:
+        if line.find("TEK ")>=0 or ind>=0:
             # Flag for night and technical tracks
             if line.find("PÄIVÄ")>=0:
                 self.track_type = 'NORMAL';
@@ -667,10 +669,12 @@ class LansirastitParser(AluerastitParser):
             else:
                 self.track_type = 'NORMAL';
 
-            try:
+            if True: #try:
                 num=''.join(i for i in line[:ind].replace("_", ".").split()[-1] if (i.isdigit() or i in ('.',','))).replace(",",".").rstrip('.')
                 num=''.join(i for i in line[:ind].replace("_", " ").split()[-1] if (i.isdigit() or i in ('.',','))).replace(",",".").rstrip('.')
-                #print num
+                if line.find('TEK ')==1:
+                  num = str(re.split(' |,', line)[2])
+                  ind = 4+len(str(num))
                 self.route = float(num)
                 self.routeline = line
                 if line.find("KÄYRÄ")>=0:
@@ -686,10 +690,10 @@ class LansirastitParser(AluerastitParser):
                 if len(self.routetag)==0:
                     self.routetag = str(self.route) + " km"
                 #print self.route, self.track_type
-            except:
-                print("error with num at %s: num=%s" % (self.header, num))
-                print(line)
-                sys.exit()
+            #except:
+            #    print("error with num at %s: num=%s" % (self.header, num))
+            #    print(line)
+            #    sys.exit()
             return 'Routeline'
 
         #  name line
