@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 from bs4 import BeautifulSoup
 import base64
-from urllib.request import urlopen
+import urllib.request
+#from urllib.request import urlopen
 import regex as re
 import sys
 from database import database
@@ -14,9 +15,16 @@ def bs_preprocess(html):
      html = html.replace("</PRE>", "</PRE>\n").replace("</TITLE>", "</TITLE>\n").replace("</H2>", "</H2>\n").replace("<BR>", "<BR>\n").replace("<BR>\n<BR>\n", "<BR><BR>\n");
      return html
 
+class AppURLopener(urllib.request.FancyURLopener):
+    version = "Mozilla/5.0"
+
 class TextParser:
     def __init__(self, url):
-        html = urlopen(url).read()    
+        opener = AppURLopener()
+        response = opener.open(url)
+        html = response.read()
+
+        #html = urlopen(url).read()    
         self.text = html.decode("latin-1")
 
     def getText(self):
@@ -35,7 +43,10 @@ class HTTPParser(TextParser):
         #fp = open(url, 'r');
         #html = join(fp.readlines(), ' ');
         #fp.close();
-        html = urlopen(url).read()    
+        opener = AppURLopener()
+        response = opener.open(url)
+        html = response.read()
+        #html = urlopen(url).read()    
         soup = BeautifulSoup(html, "lxml")
         for script in soup(["script", "style"]):
             script.extract()
