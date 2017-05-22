@@ -2,12 +2,12 @@
 title="Keski-Uusimaa-Rastit"
 #python parse3.py title=${title} date=6.4.2017     place="Tuusulan uimahalli" url="http://www.ku-rastit.net/tulokset/valiajat0604.html"
 #python parse3.py title=${title} date=12.4.2017    place=Pilvijärvi           url="http://www.ku-rastit.net/tulokset/valiajat1204.html"
-python parse3.py title=${title} date=20.4.2017    place=Martinkylä           url="http://www.ku-rastit.net/tulokset/valiajat2004.html" parser=regex
+#python parse3.py title=${title} date=20.4.2017    place=Martinkylä           url="http://www.ku-rastit.net/tulokset/valiajat2004.html" parser=regex
+#python parse3.py title=${title} date=27.4.2017    place=Hakkari              url="http://www.ku-rastit.net/tulokset/valiajat2704.html"
+#python parse3.py title=${title} date=4.5.2017     place=Rusutjärvi           url="http://www.ku-rastit.net/tulokset/valiajat0405.html"
+#python parse3.py title=${title} date=11.5.2017    place=Nikkilä              url="http://www.ku-rastit.net/tulokset/valiajat1105.html"
+python parse3.py title=${title} date=18.5.2017    place=Keinukallio          url="http://www.ku-rastit.net/tulokset/valiajat1805.html" parser=regex
 exit
-python parse3.py title=${title} date=27.4.2017    place=Hakkari
-python parse3.py title=${title} date=4.5.2017     place=Rusutjärvi
-python parse3.py title=${title} date=11.5.2017    place=Nikkilä
-python parse3.py title=${title} date=18.5.2017    place=Keinukallio
 python parse3.py title=${title} date=25.5.2017    place=Varuskunta
 python parse3.py title=${title} date=1.6.2017     place=Flisberget
 python parse3.py title=${title} date=8.6.2017     place=Massby
