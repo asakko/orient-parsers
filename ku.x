@@ -1,9 +1,9 @@
 #!/bin/bash
 title="Keski-Uusimaa-Rastit"
-python parse3.py title=${title} date=6.4.2017     place="Tuusulan uimahalli" url="http://www.ku-rastit.net/tulokset/valiajat0604.html"
+#python parse3.py title=${title} date=6.4.2017     place="Tuusulan uimahalli" url="http://www.ku-rastit.net/tulokset/valiajat0604.html"
+#python parse3.py title=${title} date=12.4.2017    place=Pilvijärvi           url="http://www.ku-rastit.net/tulokset/valiajat1204.html"
+python parse3.py title=${title} date=20.4.2017    place=Martinkylä           url="http://www.ku-rastit.net/tulokset/valiajat2004.html" parser=regex
 exit
-python parse3.py title=${title} date=12.4.2017    place=Pilvijärvi
-python parse3.py title=${title} date=20.4.2017    place=Martinkylä
 python parse3.py title=${title} date=27.4.2017    place=Hakkari
 python parse3.py title=${title} date=4.5.2017     place=Rusutjärvi
 python parse3.py title=${title} date=11.5.2017    place=Nikkilä
