@@ -958,7 +958,7 @@ class RegexParser(RouteParser):
 
             # Interesting ones
             m = re.findall('RASTIVÄLIEN', line)
-            if len(m)>0:
+            if len(m)>0 and line.find("PYSU ")<0:
 
                 # Default track type
                 self.track_type='NORMAL';
