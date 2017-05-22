@@ -950,7 +950,6 @@ class RegexParser(RouteParser):
             if m is not None:
                 tag = m.groupdict().get('tag')
                 self.routes[tag]=float(m.groupdict().get('len').replace(",", "."));
-
             # Uninteresting ones
             m = re.findall('TILANNE', line)
             if len(m)>0:
@@ -985,14 +984,19 @@ class RegexParser(RouteParser):
 
                 # A RASTIVÄLIEN AJAT
                 print("line: ", line)
-                self.route = self.routes[line.split()[0]];
-                self.routetag = "%.2f (%s)" % (self.route, line.split()[0])
+                route = line.split()[0]
+                try:
+                    self.route = float(re.sub('[a-zA-Z]', '', route))
+                except:
+                    self.route = self.routes[route];
+                self.routetag = "%.2f (%s)" % (self.route, route)
+                print(self.routetag)
 
             # Intervals line
             m = re.search('.*SIJA.*NIMI.*\.(?P<intervals>.*)\.TULOS', line)
             if m is not None and self.route is not None:
-                #print m.groupdict()
-                self.intervals = int(m.groupdict().get('intervals'))
+                print(m.groupdict())
+                self.intervals = int(m.groupdict().get('intervals')) ## Sometimes add -1
                 print(self.route, self.intervals)
 
             # Seconds parser function
@@ -1003,7 +1007,7 @@ class RegexParser(RouteParser):
             if self.intervals is not None:
                 sep = ':';
                 #search_string = r'\d+\.(?P<nimi>[A-ZÅÄÖ\xc5\xc4\xd6\\-]* [A-ZÅÄÖ\xc5\xc4\xd6\\-]*)(?:(?:\d+\.)(?P<value>(?:\d+\:)?(?:\d+\:)?\d\d)){0}.*(?P<total>(?:\d+\:)?(?:\d\d\:\d\d))$';
-                search_string = r'\d+\.(?P<nimi>[A-ZÀ-ÿÅÄÖ\xc5\xc4\xd6\\-]* [A-ZÀ-ÿÅÄÖ\xc5\xc4\xd6\\-]*)(?:(?:\d+\.)(?P<value>(?:\d+\:)?(?:\d+\:)?\d\d)){0}.*(?P<total>(?:\d+\:)?(?:\d\d\:\d\d))$';
+                search_string = r'\d+\.(?P<nimi>[A-ZÀ-ÿÅÄÖ\xc5\xc4\xd6\\-]* [A-ZÀ-ÿÅÄÖ\xc5\xc4\xd6\\-]*)(?:(?:\d+\.)(?P<value>(?:\d+\:)?(?:\d+\:)?\d\d)){0}(?:.*?)(?P<total>(?:\d+\:)?(?:\d\d\:\d\d))$';
                 m = re.findall(search_string.replace('{0}', '{%i}' % self.intervals), line);
                 if len(m)>0:
                     for n in range(1, self.intervals+1):
