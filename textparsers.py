@@ -57,7 +57,10 @@ class HTTPParserHS(TextParser):
         #fp = open(url, 'r');
         #html = join(fp.readlines(), ' ');
         #fp.close();
-        html = urlopen(url).read()    
+        #html = urlopen(url).read()    
+        opener = AppURLopener()
+        response = opener.open(url)
+        html = response.read()
         soup = BeautifulSoup(html, "lxml")
         ## Remove the team (Third column in each table row)
         [k.find_all("td")[2].extract() for k in soup.find_all("tr")]
