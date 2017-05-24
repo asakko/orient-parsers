@@ -3,9 +3,9 @@
 #python parse3.py title=Iltarastit/RR date=2.5.2017   place=Haikala url="http://rajamaenrykmentti.fi/irtulokset2017/v170502.html"
 #python parse3.py title=Iltarastit/RR date=9.5.2017   place=Partionummi url="http://rajamaenrykmentti.fi/irtulokset2017/v170509.html"
 #python parse3.py title=Iltarastit/RR date=16.5.2017  place=Vaaksi url="http://rajamaenrykmentti.fi/irtulokset2017/v170516.html"
-python parse3.py title=Iltarastit/RR date=16.5.2017  place=Vaaksi url="http://sakko.kapsi.fi/v170516.html"
+#python parse3.py title=Iltarastit/RR date=16.5.2017  place=Vaaksi url="http://sakko.kapsi.fi/v170516.html"
+python parse3.py title=Iltarastit/RR date=23.5.2017  place=Nummenpää url="http://rajamaenrykmentti.fi/irtulokset2017/v170523.html"
 exit
-python parse3.py title=Iltarastit/RR date=23.5.2017  place=Nummenpää
 python parse3.py title=Iltarastit/RR date=30.5.2017  place=Salmelanmäki
 python parse3.py title=Iltarastit/RR date=6.6.2017   place=Käpylännummi
 python parse3.py title=Iltarastit/RR date=13.6.2017  place=Rokokallio

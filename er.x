@@ -6,9 +6,9 @@ title="Espoorastit"
 #python parse3.py title=${title} date=25.4.2017  place=Puolarmaari   url="http://www.espoonakilles.fi/er17/er4_t.htm" parser=regex2
 #python parse3.py title=${title} date=2.5.2017   place=Leppävaara    url="http://www.espoonakilles.fi/er17/er5_t.htm" parser=regex2
 #python parse3.py title=${title} date=9.5.2017   place=Kantokaski    url="http://www.espoonakilles.fi/er17/er6_t.htm" parser=regex2
-python parse3.py title=${title} date=16.5.2017  place=Petikko       url="http://www.espoonakilles.fi/er17/er7_t.htm" parser=regex2
+#python parse3.py title=${title} date=16.5.2017  place=Petikko       url="http://www.espoonakilles.fi/er17/er7_t.htm" parser=regex2
+python parse3.py title=${title} date=23.5.2017  place=Aavaranta     url="http://www.espoonakilles.fi/er17/er8_t.htm" parser=regex2
 exit
-python parse3.py title=${title} date=23.5.2017  place=Aavaranta
 python parse3.py title=${title} date=30.5.2017  place=Vaakkoi
 python parse3.py title=${title} date=6.6.2017   place=Perinki
 python parse3.py title=${title} date=13.6.2017  place=Lahnus

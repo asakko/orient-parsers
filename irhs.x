@@ -9,10 +9,10 @@ title="Iltarastit/HS"
 #python parse3.py title=$title date=8.5.2017      place=Pirttimäki url="http://online.helsinginsuunnistajat.fi/valiajat?c=IR_2017_05_08"
 #python parse3.py title=$title date=9.5.2017      place=Salmi url="http://online.helsinginsuunnistajat.fi/valiajat?c=FL_2017_05_09"
 #python parse3.py title=$title date=15.5.2017     place=Pirkkola url="http://online.helsinginsuunnistajat.fi/valiajat?c=IR_2017_05_15"
-python parse3.py title=$title date=16.5.2017     place=Haukkalampi url="http://online.helsinginsuunnistajat.fi/valiajat?c=FL_2017_05_16"
+#python parse3.py title=$title date=16.5.2017     place=Haukkalampi url="http://online.helsinginsuunnistajat.fi/valiajat?c=FL_2017_05_16"
+#python parse3.py title=$title date=22.5.2017     place=Paloheinä url="http://online.helsinginsuunnistajat.fi/valiajat?c=IR_2017_05_22"
+python parse3.py title=$title date=23.5.2017     place=Luukki url="http://online.helsinginsuunnistajat.fi/valiajat?c=FL_2017_05_23"
 exit
-python parse3.py title=$title date=22.5.2017     place=Paloheinä
-python parse3.py title=$title date=23.5.2017     place=Luukki
 python parse3.py title=$title date=29.5.2017     place=Luukki
 python parse3.py title=$title date=5.6.2017      place=Salmi
 python parse3.py title=$title date=10.6.2017     place=Solvalla
