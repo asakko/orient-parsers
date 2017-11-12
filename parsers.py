@@ -46,15 +46,15 @@ def recognizeParser(url, **kwargs):
        url=="https://espoonsuunta.fi/wp-content/uploads/2016/09/v160910.html" or \
        url=="http://koti.kapsi.fi/~sakko/v160917.html":
         return (LocalHTTPParser,), ItarastitParser(url, **kwargs)
-    elif url.find("www.ku-rastit.net")>=0 or url=="http://koti.kapsi.fi/~sakko/valiajat2508.html" or url=="http://sakko.kapsi.fi/lr/valiajat2909.html" or url=="http://sakko.kapsi.fi/lr/valiajat0610.html" or url=="http://sakko.kapsi.fi/lr/valiajat1310.html" or url=="http://sakko.kapsi.fi/lr/valiajat2010.html":
+    elif url.find("www.ku-rastit.net")>=0 or url=="http://koti.kapsi.fi/~sakko/valiajat2508.html" or url=="http://sakko.kapsi.fi/lr/valiajat2909.html" or url=="http://sakko.kapsi.fi/lr/valiajat0610.html" or url=="http://sakko.kapsi.fi/lr/valiajat1310.html" or url=="http://sakko.kapsi.fi/lr/valiajat2010.html" or url=="http://sakko.kapsi.fi/valiajat0607.html":
         return (HTTPParser, HTTPParserWithPreprocess), KUParser(url, **kwargs)
     elif url.find("rastihaukat.fi/Itarastit/")>=0 or url.find("/mesik/")>=0:
         return (HTTPParser,), ItarastitParser(url, **kwargs)
     elif (url.find("online.helsinginsuunnistajat.fi")>=0 or url.find("valiajat.html")>=0):
         return (HTTPParserHS,), IltarastitHS3Parser(url, **kwargs)
-    elif (url.find("helsinginsuunnistajat.fi")>=0 or url.find("~sakko")>=0):
+    elif (url.find("helsinginsuunnistajat.fi")>=0 or url.find("~sakko")>=0) or url=="http://sakko.kapsi.fi/valiajat.html":
         return (HTTPParser,), IltarastitHS2Parser(url, **kwargs)
-    elif url.find("rajamaenrykmentti.fi")>=0 or url=="http://sakko.kapsi.fi/v170516.html":
+    elif url.find("rajamaenrykmentti.fi")>=0 or url=="http://sakko.kapsi.fi/v170516.html" or url=="http://sakko.kapsi.fi/v170808.html":
         return (HTTPParser,), IltarastitRRParser(url, **kwargs)
     elif url.find("ok77.fi")>=0 or url=="http://koti.kapsi.fi/~sakko/v160908.html" or url=="http://www.ku-rastit.net/tulokset/valiajat0809.html":
         return (HTTPParser,), LansirastitParser(url, **kwargs)
@@ -358,7 +358,7 @@ class AluerastitParser(RouteParser):
         #if line.find("FIRA-YÖ".decode('utf-8'))>=0:
         if line.find("FIRA-YÖ")>=0:
             self.permanent_night=True
-
+        
         # Separator for intervals
         if False:
             ind = line.find("RASTIVÄLIEN")
@@ -400,10 +400,10 @@ class AluerastitParser(RouteParser):
                 self.routeline = line
                 self.routetag = ' '.join(line[:ind].replace("_", " ").split()[:-1])
                 ##hack for some ku-rastit:
-                #ind = line.find(',');
-                #self.routetag = ' '.join(line[:ind].replace("_", " ").split()[1:])
+                ind = line.find(',');
+                self.routetag = ' '.join(line[:ind].replace("_", " ").split()[2:])
                 #if self.permanent_night or line.replace('_YO'.decode('utf-8'), '_YÖ'.decode('utf-8')).find("YÖ".decode('utf-8'))>=0:
-                if self.permanent_night or line.replace('_YO', '_YÖ').find("YÖ")>=0:
+                if self.permanent_night or line.find("YO ")>=0 or line.replace('_YO', '_YÖ').find("YÖ")>=0:
                     self.track_type = 'NIGHT'
                 #elif line.find('SPR'.decode('utf-8'))>=0:
                 elif line.find('SPR')>=0:
@@ -664,7 +664,7 @@ class LansirastitParser(AluerastitParser):
                 self.track_type = 'NORMAL';
             if line.find("YÖ")>=0:
                 self.track_type = 'NIGHT';
-            elif line.find("TEK")>=0:
+            elif line.find("TEK")>=0 or line.find(" T ")>=0 or line.find("TAITO")>=0:
                 self.track_type = 'TECHNICAL';
             else:
                 self.track_type = 'NORMAL';
@@ -684,10 +684,10 @@ class LansirastitParser(AluerastitParser):
                     self.routetag = line[:line.find(',')]
                     self.routetag = ' '.join(line[:ind].split()[:-1]).replace(" -", "")
                     #print self.routetag.find(',')
-                    self.routetag = self.routetag[1:]
+                    #self.routetag = self.routetag[1:]
                     #print "TAG: ", self.routetag
                     #sleep(3)
-                if len(self.routetag)==0:
+                if len(self.routetag)==0 or self.routetag[0]==" ":
                     self.routetag = str(self.route) + " km"
                 #print self.route, self.track_type
             #except:
