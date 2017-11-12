@@ -7,6 +7,7 @@ import time
 from database import database
 from textparsers import *
 from time import sleep
+from secrets import dbhost, dbuser, dbname, dbpasswd
 
 def orderNames(inp, c1, c2):
     n1 = 0
@@ -85,12 +86,7 @@ class RouteParser:
         self.linecount = 0
         self.track_type = 'NORMAL'
         self.permanent_night = False
-        self.db = database(host="localhost", user="root", db="orient", passwd="1jw9DsKFwojjjcm");
-        #self.db = database(host="localhost", user="root", db="Orientas2", passwd=base64.b64decode("anV0dW5qdXVyaQ=="))
-        #self.db = database(host="localhost", user="root", db="Orienteering", passwd=base64.b64decode("anV0dW5qdXVyaQ=="))
-        #self.db = database(host="db4free.net", user="sakko", db="orientas", passwd="emapummi"); #base64.b64decode("ZW3DpHB1bW1p"))
-        #self.db = database(host="fdb12.biz.nf", user="1749465_orientas", db="1749465_orientas", passwd="emapumm1")
-        #self.db = database(host="127.0.0.1", port=3307, user="sakko", db="sakko", passwd="emapummi")
+        self.db = database(host=dbhost, user=dbuser, db=dbname, passwd=dbpasswd);
 
     def close(self):
         if self.extraparser is not None:
